@@ -1,29 +1,34 @@
 # DomainScope
 
-Passive domain OSINT tool. Python 3.9+, **no dependencies**.
+Pasif domain OSINT araci. Python 3.9+, **bagimlilik yok**.
 
-## Features
-- DNS records (A, AAAA, MX, NS, TXT, CNAME, SOA, CAA) via Google DoH
-- Subdomain discovery via certificate transparency (crt.sh) + resolution
-- RDAP registration data (creation/expiry dates, status)
-- HTTP security header check and TLS issuer/expiry
-- JSON or Markdown report output
+## Ozellikler
+- DNS kayitlari (A, AAAA, MX, NS, TXT, CNAME, SOA, CAA) - Google DoH uzerinden
+- Sertifika seffafligi (crt.sh) ile alt alan adi kesfi ve IP cozumleme
+- RDAP kayit bilgileri (olusturma/bitis tarihi, durum)
+- HTTP guvenlik basligi kontrolu ve TLS bilgisi
+- JSON veya Markdown rapor ciktisi
 
-## Usage
+## Kullanim
 ```bash
 python domainscope.py example.com
 python domainscope.py example.com -o report.md
 python domainscope.py example.com -o report.json --no-resolve
 ```
 
-## Legal
-Uses only public data sources and sends no attack traffic. Use only on domains you are authorized to research.
+| Parametre | Aciklama |
+|-----------|----------|
+| `-o`, `--output` | Raporu dosyaya yazar (`.json` veya `.md`) |
+| `--no-resolve` | Alt alan adlarinin IP cozumlemesini atlar |
 
-## Ideas / Roadmap
-- Wayback Machine URL history
-- Email SPF/DMARC analysis
-- ASN / IP geolocation enrichment
-- HTML report
+## Yasal Uyari
+Yalnizca herkese acik veri kaynaklarini kullanir ve saldiri trafigi gondermez. Sadece arastirma yapmaya yetkili oldugunuz domainlerde kullanin.
 
-## License
+## Yol Haritasi
+- Wayback Machine URL gecmisi
+- SPF/DMARC e-posta analizi
+- ASN / IP konum bilgisi
+- HTML rapor
+
+## Lisans
 MIT
