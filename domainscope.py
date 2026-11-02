@@ -53,7 +53,7 @@ def subdomains(domain):
         except Exception as e:
             err = str(e)
     if data is None:
-        print(f"[!] crt.sh failed: {err}", file=sys.stderr)
+        print(f"[!] crt.sh basarisiz: {err}", file=sys.stderr)
         return {"error": err, "subdomains": []}
     subs = set()
     for row in data:
@@ -141,16 +141,16 @@ def to_markdown(r):
 
 
 def main():
-    p = argparse.ArgumentParser(description="Passive domain OSINT")
-    p.add_argument("domain")
-    p.add_argument("-o", "--output", help="write report (.json or .md)")
-    p.add_argument("--no-resolve", action="store_true", help="skip resolving subdomains")
+    p = argparse.ArgumentParser(description="Pasif domain OSINT araci")
+    p.add_argument("domain", help="hedef domain (ornek: example.com)")
+    p.add_argument("-o", "--output", help="raporu dosyaya yaz (.json veya .md)")
+    p.add_argument("--no-resolve", action="store_true", help="alt alan adlarinin IP cozumlemesini atla")
     a = p.parse_args()
     d = a.domain.lower().strip().removeprefix("https://").removeprefix("http://").split("/")[0]
 
     print(f"[*] {d}: DNS...", file=sys.stderr)
     dns = dns_records(d)
-    print("[*] Certificate transparency...", file=sys.stderr)
+    print("[*] Sertifika seffafligi (crt.sh)...", file=sys.stderr)
     subs = subdomains(d).get("subdomains", [])
     resolved = {s: None for s in subs} if a.no_resolve else resolve_all(subs)
     print("[*] RDAP / HTTP / TLS...", file=sys.stderr)
@@ -166,7 +166,7 @@ def main():
     if a.output:
         with open(a.output, "w", encoding="utf-8") as f:
             f.write(to_markdown(report) if a.output.endswith(".md") else json.dumps(report, indent=2))
-        print(f"[+] Saved {a.output}", file=sys.stderr)
+        print(f"[+] Kaydedildi: {a.output}", file=sys.stderr)
     else:
         print(json.dumps(report, indent=2))
 
